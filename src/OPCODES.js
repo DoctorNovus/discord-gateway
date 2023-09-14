@@ -1,3 +1,6 @@
+/**
+ * Discord Default Gateway OpCodes
+ */
 export default {
     0: "Ready",
     1: "Heartbeat",

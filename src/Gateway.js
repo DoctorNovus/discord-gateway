@@ -3,6 +3,11 @@ import WebSocket from "ws";
 let config;
 
 export class Gateway {
+    /**
+     * Basic WSS Gateway for message relay
+     * @param {Object} conf Env Var Config
+     * @param {String} token User Token
+     */
     constructor(conf, token) {
         config = conf;
         this.token = token;
@@ -20,6 +25,9 @@ export class Gateway {
         }
     }
 
+    /**
+     * Starts the gateway
+     */
     async start() {
         const resp = await fetch(`${config.API_ENDPOINT}/v10/gateway`);
         const data = await resp.json();
@@ -61,10 +69,19 @@ export class Gateway {
         });
     }
 
+    /**
+     * Sends a message to the WebSocket Server
+     * @param {Object} data Data to send to WebSocket Server
+     */
     send(data) {
         this.ws.send(JSON.stringify(data));
     }
 
+    /**
+     * Heartbeat Method for Discord Gateway
+     * @param {int} ms Heartbeat Interval
+     * @returns Interval
+     */
     heartbeat(ms) {
         return setInterval(() => {
             this.ws.send(JSON.stringify({ op: 1, d: null }))

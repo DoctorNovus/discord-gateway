@@ -6,6 +6,7 @@ require("dotenv").config();
 
 import { Gateway } from "./src/Gateway.js";
 
+// Env Vars
 const config = {
     API_ENDPOINT: process.env.API_ENDPOINT,
     CLIENT_ID: process.env.CLIENT_ID,
@@ -14,11 +15,14 @@ const config = {
     CODE_URI: process.env.CODE_URI
 }
 
+// Express Setup
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const port = 8020;
+
+// User Request Token
 let auth_token = "";
 
 app.get("/login", (req, res) => {
@@ -31,7 +35,9 @@ app.get("/", (req, res) => {
 
 app.get("/api/discord/callback", async (req, res) => {
     let query = req.query;
+
     if (query.code) {
+        // Get User Code, exchange for token
         let code = query.code;
 
         exchangeCode(code);
@@ -44,6 +50,10 @@ app.get("/api/discord/callback", async (req, res) => {
 
 let gateway;
 
+/**
+ * Exchanges the code for a user token
+ * @param {int} code User Code from Auth Grant
+ */
 async function exchangeCode(code) {
     let data = new URLSearchParams({
         "client_id": config.CLIENT_ID,
@@ -71,6 +81,7 @@ async function exchangeCode(code) {
 
         console.log(`Set Access Token.`);
 
+        // Activates WSS Gateway
         gateway = new Gateway(auth_token);
         await gateway.start();
     } catch (err) {
