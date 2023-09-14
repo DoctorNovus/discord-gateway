@@ -5,9 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "start": "node .",
-    "dev": "npm run build && npm run start"
+    "start": "node ."
   },
   "keywords": [],
   "author": "",

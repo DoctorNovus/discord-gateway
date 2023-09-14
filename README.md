@@ -13,5 +13,5 @@ CODE_URI = "your_authorize_oauth_uri"
 
 ## Usage
 
-Server will start at `localhost:8020`. To login, go to `localhost:8020/login`, which is a direct to your `CODE_URI`. This should redirect you back to homepage, and the websocket server will begin to connect.
+To run the server, open a terminal and run `npm run start`. Server will start at `localhost:8020`. To login, go to `localhost:8020/login`, which is a direct to your `CODE_URI`. This should redirect you back to homepage, and the websocket server will begin to connect.
 "# discord-gateway" 
